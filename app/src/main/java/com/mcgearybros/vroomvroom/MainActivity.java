@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 
 public class MainActivity extends AppCompatActivity
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence mTitle;
 
+    WebView htmlDisplay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +39,13 @@ public class MainActivity extends AppCompatActivity
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         toolbar.setTitle(R.string.app_name);
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        htmlDisplay = (WebView) findViewById(R.id.html_display);
+        htmlDisplay.loadUrl("file:///android_asset/cleanhighwaycode.html");
         NavigationView navigationDrawer = (NavigationView) findViewById(R.id.navigation_drawer);
         navigationDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                    toolbar.collapseActionView();
+                    htmlDisplay.loadUrl("file:///android_asset/cleanhighwaycode.html#on-pavements-38-to-40");
                     toolbar.setTitle(menuItem.getTitle());
                     drawerLayout.closeDrawers();
                 return false;

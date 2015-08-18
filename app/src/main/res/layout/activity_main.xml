@@ -24,6 +24,11 @@
         app:navigationContentDescription="open the table of contents"
         android:elevation="@dimen/design_appbar_elevation"/>
 
+        <WebView
+            android:id="@+id/html_display"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </FrameLayout>
 
     <!-- The drawer is given a fixed width in dp and extends the full height of
