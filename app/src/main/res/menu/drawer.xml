@@ -1,12 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/navigation_item_1"
-            android:checked="true"
-            android:title="placeholder menu item 1"/>
-        <item
-            android:id="@+id/navigation_item_2"
-            android:title="placeholder menu item 2"/>
+        <item android:id="@+id/introduction" android:title="Introduction"/>
+        <item android:id="@+id/general_guidance_1_to_6" android:title="General Guidance (1 to 6)"/>
+        <item android:id="@+id/crossing_the_road_7_to_17" android:title="Crossing the Road (7 to 17)"/>
+        <item android:id="@+id/crossings_18_to_30" android:title="Crossings (18 to 30)"/>
+        <item android:id="@+id/situations_needing_extra_care_31_to_35" android:title="Situations Needing Extra Care (31 to 35)"/>
+        <item android:id="@+id/rules_for_users_of_powered_wheelchairs_and_mobility_scooters_36_to_46" android:title="Rules for Users of Powered Wheelchairs and Mobility Scooters (36 to 46)"/>
+        <item android:id="@+id/powered_wheelchairs_and_mobility_scooters_36_to_37" android:title="Powered Wheelchairs and Mobility Scooters (36 to 37)"/>
+        <item android:id="@+id/on_pavements_38_to_40" android:title="On Pavements (38 to 40)"/>
+        <item android:id="@+id/on_the_road_41_to_46" android:title="On the Road (41 to 46)"/>
+        <item android:id="@+id/rules_about_animals_47_to_58" android:title="Rules About Animals (47 to 58)"/>
+        <item android:id="@+id/horsedrawn_vehicles_47_to_48" android:title="Horsedrawn Vehicles (47 to 48)"/>
+        <item android:id="@+id/horse_riders_49_to_55" android:title="Horse Riders (49 to 55)"/>
+        <item android:id="@+id/rules_for_cyclists_59_82" android:title="Rules for Cyclists (59 82)"/>
+        <item android:id="@+id/overview_59_to_71" android:title="Overview (59 to 71)"/>
+        <item android:id="@+id/road_junctions_72_to_75" android:title="Road Junctions (72 to 75)"/>
+        <item android:id="@+id/roundabouts_76_to_78" android:title="Roundabouts (76 to 78)"/>
+        <item android:id="@+id/crossing_the_road_79_to_82" android:title="Crossing the Road (79 to 82)"/>
+        <item android:id="@+id/you_and_your_bicycle" android:title="You and Your Bicycle"/>
+        <item android:id="@+id/rules_for_motorcyclists_83_to_88" android:title="Rules for Motorcyclists (83 to 88)"/>
+        <item android:id="@+id/general_guidance_83_to_88" android:title="General Guidance (83 to 88)"/>
+        <item android:id="@+id/motorcycle_licence_requirements" android:title="Motorcycle Licence Requirements"/>
+        <item android:id="@+id/rules_for_drivers_and_motorcyclists_89_to_102" android:title="Rules for Drivers and Motorcyclists (89 to 102)"/>
+        <item android:id="@+id/vehicle_condition_89" android:title="Vehicle Condition (89)"/>
+        <item android:id="@+id/fitness_to_drive_90_to_94" android:title="Fitness to Drive (90 to 94)"/>
+        <item android:id="@+id/alcohol_and_drugs_95_to_96" android:title="Alcohol and Drugs (95 to 96)"/>
+        <item android:id="@+id/before_setting_off_97" android:title="Before Setting Off (97)"/>
+        <item android:id="@+id/seat_belts_and_child_restraints_99_to_102" android:title="Seat Belts and Child Restraints (99 to 102)"/>
+        <item android:id="@+id/motorcycle_and_moped_licence_requirements" android:title="Motorcycle and Moped Licence Requirements"/>
+        <item android:id="@+id/motor_vehicle_documentation_and_learner_driver_requirements" android:title="Motor Vehicle Documentation and Learner Driver Requirements"/>
+        <item android:id="@+id/general_rules_techniques_and_advice_for_all_drivers_and_riders_103_to_158" android:title="General Rules Techniques and Advice for All Drivers and Riders (103 to 158)"/>
+        <item android:id="@+id/overview" android:title="Overview"/>
+        <item android:id="@+id/signals_103_to_106" android:title="Signals (103 to 106)"/>
+        <item android:id="@+id/other_stopping_procedures_107_to_112" android:title="Other Stopping Procedures (107 to 112)"/>
+        <item android:id="@+id/lighting_requirements_113_to_116" android:title="Lighting Requirements (113 to 116)"/>
+        <item android:id="@+id/control_of_the_vehicle_117_to_126" android:title="Control of the Vehicle (117 to 126)"/>
+        <item android:id="@+id/lines_and_lane_markings_on_the_road_127_to_132" android:title="Lines and Lane Markings On the Road (127 to 132)"/>
+        <item android:id="@+id/multilane_carriageways_133_to_143" android:title="Multilane Carriageways (133 to 143)"/>
+        <item android:id="@+id/lane_discipline" android:title="Lane Discipline"/>
+        <item android:id="@+id/single_carriageway" android:title="Single Carriageway"/>
+        <item android:id="@+id/general_advice_144_to_158" android:title="General Advice (144 to 158)"/>
+        <item android:id="@+id/mobile_phones_and_in_vehicle_technology" android:title="Mobile Phones and in Vehicle Technology"/>
+        <item android:id="@+id/driving_in_built_up_areas" android:title="Driving in Built Up Areas"/>
+        <item android:id="@+id/country_roads" android:title="Country Roads"/>
+        <item android:id="@+id/vehicles_prohibited_from_using_roads_and_pavements" android:title="Vehicles Prohibited From Using Roads and Pavements"/>
+        <item android:id="@+id/using_the_road_159_to_203" android:title="Using the Road (159 to 203)"/>
+        <item android:id="@+id/general_rules_159_to_161" android:title="General Rules (159 to 161)"/>
+        <item android:id="@+id/overtaking_162_to_169" android:title="Overtaking (162 to 169)"/>
+        <item android:id="@+id/road_junctions_170_to_183" android:title="Road Junctions (170 to 183)"/>
+        <item android:id="@+id/junctions_controlled_by_traffic_lights" android:title="Junctions Controlled By Traffic Lights"/>
+        <item android:id="@+id/turning_right" android:title="Turning Right"/>
+        <item android:id="@+id/turning_left" android:title="Turning Left"/>
+        <item android:id="@+id/roundabouts_184_to_190" android:title="Roundabouts (184 to 190)"/>
+        <item android:id="@+id/pedestrian_crossings_191_to_199" android:title="Pedestrian Crossings (191 to 199)"/>
+        <item android:id="@+id/signal_controlled_crossings" android:title="Signal Controlled Crossings"/>
+        <item android:id="@+id/reversing_200_to_203" android:title="Reversing (200 to 203)"/>
+        <item android:id="@+id/the_road_user_and_the_law" android:title="The Road User and the Law"/>
+        <item android:id="@+id/road_users_requiring_extra_care_204_225" android:title="Road Users Requiring Extra Care (204 225)"/>
+        <item android:id="@+id/overview_204" android:title="Overview (204)"/>
+        <item android:id="@+id/pedestrians_205_to_210" android:title="Pedestrians (205 to 210)"/>
+        <item android:id="@+id/motorcyclists_and_cyclists_211_to_213" android:title="Motorcyclists and Cyclists (211 to 213)"/>
+        <item android:id="@+id/other_road_users_214_to_218" android:title="Other Road Users (214 to 218)"/>
+        <item android:id="@+id/other_vehicles_219_to_225" android:title="Other Vehicles (219 to 225)"/>
+        <item android:id="@+id/driving_in_adverse_weather_conditions_226_to_237" android:title="Driving in Adverse Weather Conditions (226 to 237)"/>
+        <item android:id="@+id/overview_226" android:title="Overview (226)"/>
+        <item android:id="@+id/wet_weather_227" android:title="Wet Weather (227)"/>
+        <item android:id="@+id/icy_and_snowy_weather_228_to_231" android:title="Icy and Snowy Weather (228 to 231)"/>
+        <item android:id="@+id/windy_weather_232_to_233" android:title="Windy Weather (232 to 233)"/>
+        <item android:id="@+id/fog_234_to_236" android:title="Fog (234 to 236)"/>
+        <item android:id="@+id/hot_weather_237" android:title="Hot Weather (237)"/>
+        <item android:id="@+id/waiting_and_parking_238_to_252" android:title="Waiting and Parking (238 to 252)"/>
+        <item android:id="@+id/waiting_and_parking_238" android:title="Waiting and Parking (238)"/>
+        <item android:id="@+id/parking_239_to_247" android:title="Parking (239 to 247)"/>
+        <item android:id="@+id/parking_at_night_248_to_252" android:title="Parking at Night (248 to 252)"/>
+        <item android:id="@+id/decriminalised_parking_enforcement" android:title="Decriminalised Parking Enforcement"/>
+        <item android:id="@+id/motorways_253_to_273" android:title="Motorways (253 to 273)"/>
+        <item android:id="@+id/general_253_to_254" android:title="General (253 to 254)"/>
+        <item android:id="@+id/motorway_signals_255_to_258" android:title="Motorway Signals (255 to 258)"/>
+        <item android:id="@+id/joining_the_motorway_259" android:title="Joining the Motorway (259)"/>
+        <item android:id="@+id/on_the_motorway_260_to_263" android:title="On the Motorway (260 to 263)"/>
+        <item android:id="@+id/lane_discipline_264_to_266" android:title="Lane Discipline (264 to 266)"/>
+        <item android:id="@+id/overtaking_267_to_269" android:title="Overtaking (267 to 269)"/>
+        <item android:id="@+id/stopping_270_to_271" android:title="Stopping (270 to 271)"/>
+        <item android:id="@+id/leaving_the_motorway_272_to_273" android:title="Leaving the Motorway (272 to 273)"/>
+        <item android:id="@+id/breakdowns_and_incidents_274_to_287" android:title="Breakdowns and Incidents (274 to 287)"/>
+        <item android:id="@+id/breakdowns_274" android:title="Breakdowns (274)"/>
+        <item android:id="@+id/additional_rules_for_motorways_275_to_278" android:title="Additional Rules for Motorways (275 to 278)"/>
+        <item android:id="@+id/obstructions_279_to_280" android:title="Obstructions (279 to 280)"/>
+        <item android:id="@+id/incidents_281_to_283" android:title="Incidents (281 to 283)"/>
+        <item android:id="@+id/incidents_involving_dangerous_goods_284_to_285" android:title="Incidents Involving Dangerous Goods (284 to 285)"/>
+        <item android:id="@+id/documentation_286_to_287" android:title="Documentation (286 to 287)"/>
+        <item android:id="@+id/road_works_level_crossings_and_tramways_288_to_307" android:title="Road Works Level Crossings and Tramways (288 to 307)"/>
+        <item android:id="@+id/road_works_288" android:title="Road Works (288)"/>
+        <item android:id="@+id/additional_rules_for_highspeed_roads_289_to_290" android:title="Additional Rules for Highspeed Roads (289 to 290)"/>
+        <item android:id="@+id/level_crossings_291_to_299" android:title="Level Crossings (291 to 299)"/>
+        <item android:id="@+id/tramways_300_to_307" android:title="Tramways (300 to 307)"/>
     </group>
 </menu>
