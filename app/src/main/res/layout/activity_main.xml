@@ -37,8 +37,25 @@
         android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="com.mcgearybros.vroomvroom.NavigationDrawerFragment"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer"
-        android:elevation="@dimen/design_navigation_elevation"/>
 
+        android:elevation="@dimen/design_navigation_elevation">
+
+        <!-- removed from navigationview tag app:headerLayout="@layout/drawer_header"
+app:menu="@menu/drawer" -->
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <include
+                android:id="@+id/navigation_drawer_header"
+                layout="@layout/drawer_header" />
+
+        <ListView
+            android:id="@+id/navigation_drawer_list"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_below="@id/navigation_drawer_header"/>
+
+        </RelativeLayout>
+
+        </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
