@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,14 +33,19 @@ public class MainActivity extends AppCompatActivity
     private CharSequence mTitle;
 
     WebView htmlDisplay;
+    DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        toolbar.setTitle(R.string.app_name);
-        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle(R.string.app_name);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
         htmlDisplay = (WebView) findViewById(R.id.html_display);
         htmlDisplay.loadUrl("file:///android_asset/cleanhighwaycode.html");
         NavigationView navigationDrawer = (NavigationView) findViewById(R.id.navigation_drawer);
@@ -46,8 +53,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                     htmlDisplay.loadUrl("file:///android_asset/cleanhighwaycode.html#on-pavements-38-to-40");
-                    toolbar.setTitle(menuItem.getTitle());
-                    drawerLayout.closeDrawers();
+                    mToolbar.setTitle(menuItem.getTitle());
+                    mDrawerLayout.closeDrawers();
                 return false;
             }
         });
@@ -57,6 +64,16 @@ public class MainActivity extends AppCompatActivity
 
         // Set up the drawer.
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //When Navigation Drawer is open, back button closes it, otherwise Back behaves normally
+        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
