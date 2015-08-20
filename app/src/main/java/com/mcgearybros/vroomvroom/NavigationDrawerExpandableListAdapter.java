@@ -65,7 +65,7 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
         //final String children = (String) getChild(groupPosition);
         TextView text = null;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.navigation_drawer_main_items, null);
+            convertView = inflater.inflate(R.layout.navigation_drawer_main_items, parent, false);
         }
         //text = (TextView) convertView.findViewById(R.id.textView1);
         //text.setText(mainItems.valueAt(groupPosition).getNavigationMainItem());
@@ -80,7 +80,7 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
         final String children = (String) getChild(groupPosition, childPosition);
         TextView text = null;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.navigation_drawer_sub_items, null);
+            convertView = inflater.inflate(R.layout.navigation_drawer_sub_items, parent, false);
         }
         text = (TextView) convertView.findViewById(R.id.textView1);
         text.setText(children);
