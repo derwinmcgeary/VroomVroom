@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ExpandableListView;
 
 
 public class MainActivity extends AppCompatActivity
@@ -35,10 +37,15 @@ public class MainActivity extends AppCompatActivity
     WebView htmlDisplay;
     DrawerLayout mDrawerLayout;
 
+    SparseArray<NavigationMainItem> mainItems = new SparseArray<NavigationMainItem>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        createTestMenuItems();
+
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
@@ -49,6 +56,9 @@ public class MainActivity extends AppCompatActivity
         htmlDisplay = (WebView) findViewById(R.id.html_display);
         htmlDisplay.loadUrl("file:///android_asset/cleanhighwaycode.html");
         NavigationView navigationDrawer = (NavigationView) findViewById(R.id.navigation_drawer);
+        ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
+        NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
+        navigationDrawerListView.setAdapter(adapter);
         navigationDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -64,6 +74,16 @@ public class MainActivity extends AppCompatActivity
 
         // Set up the drawer.
 
+    }
+
+    public void createTestMenuItems(){
+        for (int j = 0; j < 5; j++) {
+            NavigationMainItem mainItem = new NavigationMainItem("Test " + j);
+            for (int i = 0; i < 5; i++) {
+                mainItem.navigationSubItem.add("Sub Item" + i);
+            }
+            mainItems.append(j, mainItem);
+        }
     }
 
     @Override
