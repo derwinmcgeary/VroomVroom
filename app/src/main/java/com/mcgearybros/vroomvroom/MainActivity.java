@@ -56,9 +56,19 @@ public class MainActivity extends AppCompatActivity
         htmlDisplay = (WebView) findViewById(R.id.html_display);
         htmlDisplay.loadUrl("file:///android_asset/cleanhighwaycode.html");
         NavigationView navigationDrawer = (NavigationView) findViewById(R.id.navigation_drawer);
-        ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
+        final ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
         NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
         navigationDrawerListView.setAdapter(adapter);
+        navigationDrawerListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousGroup = -1;
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (groupPosition != previousGroup)
+                    navigationDrawerListView.collapseGroup(previousGroup);
+                previousGroup = groupPosition;
+            }
+        });
         navigationDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
