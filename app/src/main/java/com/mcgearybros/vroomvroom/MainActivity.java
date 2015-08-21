@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ExpandableListView;
 
 
@@ -54,10 +53,11 @@ public class MainActivity extends AppCompatActivity
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+        WebView.setWebContentsDebuggingEnabled(true);
         htmlDisplay = (WebView) findViewById(R.id.html_display);
+        //htmlDisplay.getSettings().setDomStorageEnabled(true);
         htmlDisplay.getSettings().setJavaScriptEnabled(true);
-        htmlDisplay.getSettings().setDomStorageEnabled(true);
-        htmlDisplay.setWebViewClient(new WebViewClient() {
+        /**htmlDisplay.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity
             public void onPageFinished(WebView view, String url) {
                 view.loadUrl("javascript:var x = document.getElementById('on-pavements-38-to-40').style.display = 'none';");
             }
-        });
-        htmlDisplay.loadUrl("file:///android_asset/cleanhighwaycode.html");
+        });*/
+        htmlDisplay.loadUrl("file:///android_asset/hwcode.html");
         NavigationView navigationDrawer = (NavigationView) findViewById(R.id.navigation_drawer);
         final ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
         NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
@@ -88,7 +88,9 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                htmlDisplay.loadUrl("javascript:var x = document.getElementById('on-pavements-38-to-40').style.display = 'block';");
+                htmlDisplay.loadUrl("javascript:var x = document.getElementById('on-pavements-38-to-40').style.display = 'block';" +
+                        "var y = document.getElementById('content').style.display = 'none';");
+                        mDrawerLayout.closeDrawers();
                 return false;
             }
         });
