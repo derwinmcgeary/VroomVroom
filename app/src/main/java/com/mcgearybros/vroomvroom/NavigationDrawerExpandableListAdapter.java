@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by Lewis on 20/08/15.
@@ -84,18 +83,19 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
         }
         text = (TextView) convertView.findViewById(R.id.textView1);
         text.setText(children);
-        convertView.setOnClickListener(new View.OnClickListener() {
+        convertView.setClickable(false);
+        /*convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(activity, children,
                         Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 }

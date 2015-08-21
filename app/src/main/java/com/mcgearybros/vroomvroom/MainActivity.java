@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ExpandableListView;
 
 
@@ -54,6 +55,20 @@ public class MainActivity extends AppCompatActivity
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         htmlDisplay = (WebView) findViewById(R.id.html_display);
+        htmlDisplay.getSettings().setJavaScriptEnabled(true);
+        htmlDisplay.getSettings().setDomStorageEnabled(true);
+        htmlDisplay.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                view.loadUrl("javascript:var x = document.getElementById('on-pavements-38-to-40').style.display = 'none';");
+            }
+        });
         htmlDisplay.loadUrl("file:///android_asset/cleanhighwaycode.html");
         NavigationView navigationDrawer = (NavigationView) findViewById(R.id.navigation_drawer);
         final ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
@@ -67,6 +82,14 @@ public class MainActivity extends AppCompatActivity
                 if (groupPosition != previousGroup)
                     navigationDrawerListView.collapseGroup(previousGroup);
                 previousGroup = groupPosition;
+            }
+        });
+        navigationDrawerListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                htmlDisplay.loadUrl("javascript:var x = document.getElementById('on-pavements-38-to-40').style.display = 'block';");
+                return false;
             }
         });
         navigationDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
