@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-        WebView.setWebContentsDebuggingEnabled(true);
         htmlDisplay = (WebView) findViewById(R.id.html_display);
         //htmlDisplay.getSettings().setDomStorageEnabled(true);
         htmlDisplay.getSettings().setJavaScriptEnabled(true);
