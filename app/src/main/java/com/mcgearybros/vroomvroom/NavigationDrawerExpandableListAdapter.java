@@ -31,7 +31,7 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return mainItems.get(groupPosition).navigationSubItem.size();
+        return mainItems.get(groupPosition).subItems.size();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return mainItems.get(groupPosition).navigationSubItem.get(childPosition);
+        return mainItems.get(groupPosition).subItems.get(childPosition);
     }
 
     @Override
@@ -67,22 +67,22 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
             convertView = inflater.inflate(R.layout.navigation_drawer_main_items, parent, false);
         }
         //text = (TextView) convertView.findViewById(R.id.textView1);
-        //text.setText(mainItems.valueAt(groupPosition).getNavigationMainItem());
+        //text.setText(mainItems.valueAt(groupPosition).getMainItemTitle());
         NavigationMainItem thisMainItem = (NavigationMainItem) getGroup(groupPosition);
-        ((CheckedTextView) convertView).setText(thisMainItem.navigationMainItem);
+        ((CheckedTextView) convertView).setText(thisMainItem.mainItemTitle);
         ((CheckedTextView) convertView).setChecked(isExpanded);
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final String children = (String) getChild(groupPosition, childPosition);
+        final NavigationSubItem thisSubItem = (NavigationSubItem) getChild(groupPosition, childPosition);
         TextView text = null;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.navigation_drawer_sub_items, parent, false);
         }
         text = (TextView) convertView.findViewById(R.id.textView1);
-        text.setText(children);
+        text.setText(thisSubItem.getSubItemTitle());
         convertView.setClickable(false);
         /*convertView.setOnClickListener(new View.OnClickListener() {
             @Override

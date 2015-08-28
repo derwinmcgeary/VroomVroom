@@ -114,7 +114,9 @@ public class MainActivity extends AppCompatActivity
         for (int j = 0; j < 5; j++) {
             NavigationMainItem mainItem = new NavigationMainItem("Test " + j);
             for (int i = 0; i < 5; i++) {
-                mainItem.navigationSubItem.add("Sub Item" + i);
+                NavigationSubItem subItem = new NavigationSubItem("Sub Item" + i);
+                mainItem.subItems.append(i, subItem);
+                //mainItem.subItems.add("Sub Item" + i);
             }
             mainItems.append(j, mainItem);
         }

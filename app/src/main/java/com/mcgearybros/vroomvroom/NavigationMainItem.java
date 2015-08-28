@@ -1,24 +1,23 @@
 package com.mcgearybros.vroomvroom;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.util.SparseArray;
 
 /**
  * Created by Lewis on 20/08/15.
  */
 public class NavigationMainItem {
-    public String navigationMainItem;
-    public final List<String> navigationSubItem = new ArrayList<String>();
+    public String mainItemTitle;
+    public final SparseArray<NavigationSubItem> subItems = new SparseArray<NavigationSubItem>();
 
     public NavigationMainItem(String string){
-        this.navigationMainItem = string;
+        this.mainItemTitle = string;
     }
 
-    public String getNavigationMainItem() {
-        return navigationMainItem;
+    public String getMainItemTitle() {
+        return mainItemTitle;
     }
 
-    public List<String> getNavigationSubItem() {
-        return navigationSubItem;
+    public SparseArray<NavigationSubItem> getSubItems() {
+        return subItems;
     }
 }
