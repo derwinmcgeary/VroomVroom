@@ -20,6 +20,10 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ExpandableListView;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -44,8 +48,15 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        createTestMenuItems();
-
+        //createTestMenuItems();
+        MenuXmlPullParser menuXmlPullParser = new MenuXmlPullParser();
+        try {
+            mainItems = menuXmlPullParser.parse(this, R.xml.test_parsing);
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
