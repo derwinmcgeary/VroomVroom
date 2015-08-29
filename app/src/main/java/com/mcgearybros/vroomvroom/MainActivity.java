@@ -50,9 +50,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         //createTestMenuItems();
-        MenuXmlPullParser menuXmlPullParser = new MenuXmlPullParser();
+       /* MenuXmlPullParser menuXmlPullParser = new MenuXmlPullParser();
         try {
             mainItems = menuXmlPullParser.parse(this, R.xml.test_parsing);
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }**/
+        MenuXhtmlPullParser menuXhtmlPullParser = new MenuXhtmlPullParser();
+        try {
+            mainItems = menuXhtmlPullParser.parse(this);
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         } catch (IOException e) {
