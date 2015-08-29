@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout mDrawerLayout;
 
     SparseArray<NavigationMainItem> mainItems = new SparseArray<NavigationMainItem>();
+    String currentContentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         htmlDisplay = (WebView) findViewById(R.id.html_display);
         //htmlDisplay.getSettings().setDomStorageEnabled(true);
         htmlDisplay.getSettings().setJavaScriptEnabled(true);
+        currentContentId = "content";
         /**htmlDisplay.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         htmlDisplay.loadUrl("file:///android_asset/hwcode.html");
         NavigationView navigationDrawer = (NavigationView) findViewById(R.id.navigation_drawer);
         final ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
-        NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
+        final NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
         navigationDrawerListView.setAdapter(adapter);
         navigationDrawerListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousGroup = -1;
@@ -98,8 +100,10 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                htmlDisplay.loadUrl("javascript:var x = document.getElementById('on-pavements-38-to-40').style.display = 'block';" +
-                        "var y = document.getElementById('content').style.display = 'none';");
+                String newContentId = adapter.getContentId(groupPosition, childPosition);
+                htmlDisplay.loadUrl("javascript:var x = document.getElementById('" + newContentId + "').style.display = 'block';" +
+                        "var y = document.getElementById('" + currentContentId + "').style.display = 'none';");
+                        currentContentId = newContentId;
                         mDrawerLayout.closeDrawers();
                 return false;
             }
@@ -121,7 +125,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void createTestMenuItems(){
+    /*public void createTestMenuItems(){
         for (int j = 0; j < 5; j++) {
             NavigationMainItem mainItem = new NavigationMainItem("Test " + j);
             for (int i = 0; i < 5; i++) {
@@ -131,7 +135,7 @@ public class MainActivity extends AppCompatActivity
             }
             mainItems.append(j, mainItem);
         }
-    }
+    }**/
 
     @Override
     public void onBackPressed() {

@@ -83,15 +83,22 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
         }
         text = (TextView) convertView.findViewById(R.id.textView1);
         text.setText(thisSubItem.getSubItemTitle());
+        String contentId = thisSubItem.getContentId();
         convertView.setClickable(false);
         /*convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, children,
+                Toast.makeText(activity, thisSubItem.getContentId(),
                         Toast.LENGTH_SHORT).show();
+
             }
-        });*/
+        });**/
         return convertView;
+    }
+    public String getContentId(int groupPosition, int childPosition){
+        final NavigationSubItem thisSubItem = (NavigationSubItem) getChild(groupPosition, childPosition);
+        return thisSubItem.getContentId();
+
     }
 
     @Override

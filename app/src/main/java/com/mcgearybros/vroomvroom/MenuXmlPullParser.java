@@ -18,6 +18,7 @@ public class MenuXmlPullParser {
     public String subTag = "SubItem";
     public String mainItemTitleAttribute = "title";
     public String subItemTitleAttribute = "title";
+    public String subItemIdAttribute = "id";
 
     public SparseArray<NavigationMainItem> parse(Activity act, int resourceId) throws XmlPullParserException, IOException{
 
@@ -37,7 +38,7 @@ public class MenuXmlPullParser {
                     int i=0;
                     while (!menuParser.getName().equals(mainTag)){
                         if (eventType == XmlPullParser.START_TAG){
-                            NavigationSubItem newSubItem = new NavigationSubItem (menuParser.getAttributeValue(null, subItemTitleAttribute));
+                            NavigationSubItem newSubItem = new NavigationSubItem (menuParser.getAttributeValue(null, subItemTitleAttribute), menuParser.getAttributeValue(null, subItemIdAttribute));
                             newMainItem.subItems.append(i, newSubItem);
                             i++;
                             eventType = menuParser.next();

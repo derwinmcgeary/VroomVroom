@@ -7,9 +7,9 @@ public class NavigationSubItem {
     public String subItemTitle;
     public String contentId;
 
-    public NavigationSubItem(String newTitle){
+    public NavigationSubItem(String newTitle, String newContentId){
         this.subItemTitle = newTitle;
-        //this.contentId = newContentId;
+        this.contentId = newContentId;
     }
 
     public String getSubItemTitle() {
