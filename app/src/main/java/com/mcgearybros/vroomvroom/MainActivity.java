@@ -21,13 +21,12 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CharSequence mTitle;
-
     WebView htmlDisplay;
     DrawerLayout mDrawerLayout;
     String htmlContentFilename = "hwcode.html";
-
-    SparseArray<NavigationMainItem> mainItems = new SparseArray<NavigationMainItem>();
+    //array to be populated using xml parser then passed on to create navigation menu
+    SparseArray<NavigationMainItem> mainItems = new SparseArray<>();
+    //id in html file of currently displayed section
     String currentContentId;
 
     @Override
@@ -38,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
         initialiseActivityUi();
         initialiseWebview();
         setupNavigationMenu();
-        mTitle = getTitle();
     }
 
     private void parseXhtml() {
         MenuXhtmlPullParser menuXhtmlPullParser = new MenuXhtmlPullParser();
         try {
             InputStream inputStream = getAssets().open(htmlContentFilename);
+            //create an array of main navigation objects, each containing sub navigation objects
             mainItems = menuXhtmlPullParser.parse(inputStream);
             inputStream.close();
         } catch (XmlPullParserException e) {
@@ -72,23 +71,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupNavigationMenu() {
+        //populate navigation menu using data parsed from the html content page
         final ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
         final NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
         navigationDrawerListView.setAdapter(adapter);
+        //only allow one menu subgroup to be open at a time
         navigationDrawerListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousGroup = -1;
-
             @Override
             public void onGroupExpand(int groupPosition) {
                 if (groupPosition != previousGroup)
                     navigationDrawerListView.collapseGroup(previousGroup);
-                previousGroup = groupPosition;
+                    previousGroup = groupPosition;
             }
         });
+
         navigationDrawerListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                //get sub item which has been selected
                 final NavigationSubItem clickedSubItem = (NavigationSubItem) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
                 changeToNewSection(clickedSubItem);
                 mDrawerLayout.closeDrawers();
@@ -100,9 +102,12 @@ public class MainActivity extends AppCompatActivity {
     public void changeToNewSection(NavigationSubItem clickedSubItem){
         String newContentId = clickedSubItem.getContentId();
         String newTitle = clickedSubItem.getSubItemTitle();
+        //display section matching new id and hide previous section
         htmlDisplay.loadUrl("javascript:var x = document.getElementById('" + newContentId + "').style.display = 'block';" +
                 "var y = document.getElementById('" + currentContentId + "').style.display = 'none';");
+        //display title of new section in action bar
         getSupportActionBar().setTitle(newTitle);
+        //keep track of new id of displayed content
         currentContentId = newContentId;
 
     }
