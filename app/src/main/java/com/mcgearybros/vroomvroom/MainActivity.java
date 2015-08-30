@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     WebView htmlDisplay;
     DrawerLayout mDrawerLayout;
+    String htmlContentFilename = "hwcode.html";
 
     SparseArray<NavigationMainItem> mainItems = new SparseArray<NavigationMainItem>();
     String currentContentId;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private void parseXhtml() {
         MenuXhtmlPullParser menuXhtmlPullParser = new MenuXhtmlPullParser();
         try {
-            mainItems = menuXhtmlPullParser.parse(this);
+            mainItems = menuXhtmlPullParser.parse(this, htmlContentFilename);
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         } catch (IOException e) {

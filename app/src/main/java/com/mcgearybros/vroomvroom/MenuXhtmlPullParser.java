@@ -17,10 +17,10 @@ public class MenuXhtmlPullParser {
     public SparseArray<NavigationMainItem> mainItemsFromXhtml = new SparseArray<NavigationMainItem>();
 
 
-    public SparseArray<NavigationMainItem> parse (Activity act) throws XmlPullParserException, IOException {
+    public SparseArray<NavigationMainItem> parse (Activity act, String fileName) throws XmlPullParserException, IOException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser menuParser = factory.newPullParser();
-        menuParser.setInput(act.getAssets().open("hwcode.html"), "utf-8");
+        menuParser.setInput(act.getAssets().open(fileName), "utf-8");
         menuParser.nextTag();
         int eventType = menuParser.getEventType();
         String currentTag;
