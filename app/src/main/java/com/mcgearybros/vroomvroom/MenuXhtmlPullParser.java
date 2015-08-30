@@ -22,26 +22,34 @@ public class MenuXhtmlPullParser {
         XmlPullParser menuParser = factory.newPullParser();
         menuParser.setInput(inputStream, "utf-8");
         menuParser.nextTag();
-        int eventType = menuParser.getEventType();
-        String currentTag;
         int j = 0;
+        //loop until we get to </body> tag
         while (!(("body").equals(menuParser.getName()) && menuParser.getEventType() == XmlPullParser.END_TAG)){
-            currentTag = menuParser.getName();
+            //loop until we find a <section> tag
             while (!("section").equals(menuParser.getName())){
                 menuParser.next();
             }
+            //then find the first <h1> tag
             while (!("h1").equals(menuParser.getName())) {
                 menuParser.next();
             }
+            //create a new main menu item using the text of the sections h1 tag
             NavigationMainItem newMainItem = new NavigationMainItem(menuParser.nextText());
             int i = 0;
+            //loop until we find the </section> tag
             while (!(("section").equals(menuParser.getName()) &&  menuParser.getEventType() == XmlPullParser.END_TAG)) {
+                //if we hit an <article> tag, set up a new sub item, this will repeat for all <article>
+                //tags in the section
                 if(("article").equals(menuParser.getName()) && menuParser.getEventType() == XmlPullParser.START_TAG) {
+                    //get the id of the <article>
                     String newSubItemId = menuParser.getAttributeValue(null, "id");
+                    //find the first <h1> tag
                     while (!("h1").equals(menuParser.getName())) {
                         menuParser.next();
                     }
+                    //create a new sub menu item using the text of the articles h1 tag
                     NavigationSubItem newSubItem = new NavigationSubItem(menuParser.nextText(), newSubItemId);
+                    //add the sub item to the main item
                     newMainItem.subItems.append(i, newSubItem);
                     i++;
                     menuParser.next();
@@ -49,6 +57,7 @@ public class MenuXhtmlPullParser {
                     menuParser.next();
                 }
             }
+            //add the new main item with associated  sub items to our array
             mainItemsFromXhtml.append(j, newMainItem);
             j++;
             menuParser.next();
