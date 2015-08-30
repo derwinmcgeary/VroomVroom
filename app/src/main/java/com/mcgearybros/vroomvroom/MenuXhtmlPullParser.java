@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Lewis on 29/08/15.
@@ -17,6 +18,7 @@ public class MenuXhtmlPullParser {
 
     public SparseArray<NavigationMainItem> mainItemsFromXhtml = new SparseArray<>();
     public ArrayList<NavigationSubItem> subItemsFromXhtml = new ArrayList<>();
+    public LinkedHashMap<String, NavigationSubItem> subItemsHashMap = new LinkedHashMap<>();
 
     public SparseArray<NavigationMainItem> parse (InputStream inputStream) throws XmlPullParserException, IOException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -54,6 +56,7 @@ public class MenuXhtmlPullParser {
                     newMainItem.subItems.append(i, newSubItem);
                     //collect each sub item in an array
                     subItemsFromXhtml.add(newSubItem);
+                    subItemsHashMap.put(newSubItemId, newSubItem);
                     i++;
                     menuParser.next();
                 } else {
@@ -72,5 +75,9 @@ public class MenuXhtmlPullParser {
 
     public ArrayList<NavigationSubItem> getSubItemsFromXhtml() {
         return subItemsFromXhtml;
+    }
+
+    public LinkedHashMap<String, NavigationSubItem> getSubItemsHashMap() {
+        return subItemsHashMap;
     }
 }

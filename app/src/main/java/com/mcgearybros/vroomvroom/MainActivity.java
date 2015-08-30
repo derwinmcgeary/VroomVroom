@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             InputStream inputStream = getAssets().open(htmlContentFilename);
             //create an array of main navigation objects, each containing sub navigation objects
             mainItems = menuXhtmlPullParser.parse(inputStream);
-            contentManager = new HtmlContentManager(menuXhtmlPullParser.getSubItemsFromXhtml());
+            contentManager = new HtmlContentManager(menuXhtmlPullParser.getSubItemsFromXhtml(), menuXhtmlPullParser.getSubItemsHashMap());
             inputStream.close();
         } catch (XmlPullParserException e) {
             e.printStackTrace();
@@ -111,8 +111,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(newTitle);
         //keep track of new id of displayed content
         currentContentId = newContentId;
-
+        contentManager.setCurrentPosition(newContentId);
     }
+
+
     @Override
     public void onBackPressed() {
         //When Navigation Drawer is open, back button closes it, otherwise Back behaves normally
