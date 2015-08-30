@@ -70,19 +70,24 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                String newContentId = adapter.getContentId(groupPosition, childPosition);
-                htmlDisplay.loadUrl("javascript:var x = document.getElementById('" + newContentId + "').style.display = 'block';" +
-                        "var y = document.getElementById('" + currentContentId + "').style.display = 'none';");
-                        mToolbar.setTitle(adapter.getContentTitle(groupPosition, childPosition));
-                        currentContentId = newContentId;
-                        mDrawerLayout.closeDrawers();
+                final NavigationSubItem clickedSubItem = (NavigationSubItem) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
+                changeToNewSection(clickedSubItem);
+                mDrawerLayout.closeDrawers();
                 return false;
             }
         });
         mTitle = getTitle();
     }
 
+    public void changeToNewSection(NavigationSubItem clickedSubItem){
+        String newContentId = clickedSubItem.getContentId();
+        String newTitle = clickedSubItem.getSubItemTitle();
+        htmlDisplay.loadUrl("javascript:var x = document.getElementById('" + newContentId + "').style.display = 'block';" +
+                "var y = document.getElementById('" + currentContentId + "').style.display = 'none';");
+        getSupportActionBar().setTitle(newTitle);
+        currentContentId = newContentId;
 
+    }
     @Override
     public void onBackPressed() {
         //When Navigation Drawer is open, back button closes it, otherwise Back behaves normally
