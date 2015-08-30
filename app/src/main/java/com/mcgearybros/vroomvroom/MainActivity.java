@@ -16,6 +16,7 @@ import android.widget.ExpandableListView;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private void parseXhtml() {
         MenuXhtmlPullParser menuXhtmlPullParser = new MenuXhtmlPullParser();
         try {
-            mainItems = menuXhtmlPullParser.parse(this, htmlContentFilename);
+            InputStream inputStream = getAssets().open(htmlContentFilename);
+            mainItems = menuXhtmlPullParser.parse(inputStream);
+            inputStream.close();
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         htmlDisplay = (WebView) findViewById(R.id.html_display);
         htmlDisplay.getSettings().setJavaScriptEnabled(true);
         currentContentId = "content";
-        htmlDisplay.loadUrl("file:///android_asset/hwcode.html");
+        htmlDisplay.loadUrl("file:///android_asset/" + htmlContentFilename);
     }
 
     private void setupNavigationMenu() {

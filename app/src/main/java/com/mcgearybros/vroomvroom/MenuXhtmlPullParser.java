@@ -1,6 +1,5 @@
 package com.mcgearybros.vroomvroom;
 
-import android.app.Activity;
 import android.util.SparseArray;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -8,6 +7,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Lewis on 29/08/15.
@@ -17,10 +17,10 @@ public class MenuXhtmlPullParser {
     public SparseArray<NavigationMainItem> mainItemsFromXhtml = new SparseArray<NavigationMainItem>();
 
 
-    public SparseArray<NavigationMainItem> parse (Activity act, String fileName) throws XmlPullParserException, IOException {
+    public SparseArray<NavigationMainItem> parse (InputStream inputStream) throws XmlPullParserException, IOException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser menuParser = factory.newPullParser();
-        menuParser.setInput(act.getAssets().open(fileName), "utf-8");
+        menuParser.setInput(inputStream, "utf-8");
         menuParser.nextTag();
         int eventType = menuParser.getEventType();
         String currentTag;
