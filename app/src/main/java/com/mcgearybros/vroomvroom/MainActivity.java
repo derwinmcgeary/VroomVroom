@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     SparseArray<NavigationMainItem> mainItems = new SparseArray<>();
     //id in html file of currently displayed section
     String currentContentId;
+    HtmlContentManager contentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             InputStream inputStream = getAssets().open(htmlContentFilename);
             //create an array of main navigation objects, each containing sub navigation objects
             mainItems = menuXhtmlPullParser.parse(inputStream);
+            contentManager = new HtmlContentManager(menuXhtmlPullParser.getSubItemsFromXhtml());
             inputStream.close();
         } catch (XmlPullParserException e) {
             e.printStackTrace();
