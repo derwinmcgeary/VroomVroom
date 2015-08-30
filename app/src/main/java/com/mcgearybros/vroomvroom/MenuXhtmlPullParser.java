@@ -8,14 +8,15 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by Lewis on 29/08/15.
  */
 public class MenuXhtmlPullParser {
 
-    public SparseArray<NavigationMainItem> mainItemsFromXhtml = new SparseArray<NavigationMainItem>();
-
+    public SparseArray<NavigationMainItem> mainItemsFromXhtml = new SparseArray<>();
+    public ArrayList<NavigationSubItem> subItemsFromXhtml = new ArrayList<>();
 
     public SparseArray<NavigationMainItem> parse (InputStream inputStream) throws XmlPullParserException, IOException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -51,6 +52,8 @@ public class MenuXhtmlPullParser {
                     NavigationSubItem newSubItem = new NavigationSubItem(menuParser.nextText(), newSubItemId);
                     //add the sub item to the main item
                     newMainItem.subItems.append(i, newSubItem);
+                    //collect each sub item in an array
+                    subItemsFromXhtml.add(newSubItem);
                     i++;
                     menuParser.next();
                 } else {
@@ -65,5 +68,9 @@ public class MenuXhtmlPullParser {
 
 
             return mainItemsFromXhtml;
+    }
+
+    public ArrayList<NavigationSubItem> getSubItemsFromXhtml() {
+        return subItemsFromXhtml;
     }
 }
