@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 String newContentId = adapter.getContentId(groupPosition, childPosition);
                 htmlDisplay.loadUrl("javascript:var x = document.getElementById('" + newContentId + "').style.display = 'block';" +
                         "var y = document.getElementById('" + currentContentId + "').style.display = 'none';");
+                        mToolbar.setTitle(adapter.getContentTitle(groupPosition, childPosition));
                         currentContentId = newContentId;
                         mDrawerLayout.closeDrawers();
                 return false;

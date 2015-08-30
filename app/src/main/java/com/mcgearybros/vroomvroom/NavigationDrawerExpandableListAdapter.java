@@ -86,6 +86,11 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
         return thisSubItem.getContentId();
     }
 
+    public String getContentTitle(int groupPosition, int childPosition){
+        final NavigationSubItem thisSubItem = (NavigationSubItem) getChild(groupPosition, childPosition);
+        return thisSubItem.getSubItemTitle();
+    }
+
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
