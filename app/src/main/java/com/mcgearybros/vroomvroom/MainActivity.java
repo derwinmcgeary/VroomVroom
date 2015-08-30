@@ -1,7 +1,6 @@
 package com.mcgearybros.vroomvroom;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        parseXhtml();
+        initialiseActivityUi();
+        initialiseWebview();
+        setupNavigationMenu();
+        mTitle = getTitle();
+    }
+
+    private void parseXhtml() {
         MenuXhtmlPullParser menuXhtmlPullParser = new MenuXhtmlPullParser();
         try {
             mainItems = menuXhtmlPullParser.parse(this);
@@ -41,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void initialiseActivityUi() {
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
@@ -48,11 +58,16 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+    }
+
+    private void initialiseWebview() {
         htmlDisplay = (WebView) findViewById(R.id.html_display);
         htmlDisplay.getSettings().setJavaScriptEnabled(true);
         currentContentId = "content";
         htmlDisplay.loadUrl("file:///android_asset/hwcode.html");
-        NavigationView navigationDrawer = (NavigationView) findViewById(R.id.navigation_drawer);
+    }
+
+    private void setupNavigationMenu() {
         final ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
         final NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
         navigationDrawerListView.setAdapter(adapter);
@@ -76,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        mTitle = getTitle();
     }
 
     public void changeToNewSection(NavigationSubItem clickedSubItem){
