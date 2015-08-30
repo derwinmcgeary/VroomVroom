@@ -61,15 +61,11 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        //final String children = (String) getChild(groupPosition);
-        TextView text = null;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.navigation_drawer_main_items, parent, false);
         }
-        //text = (TextView) convertView.findViewById(R.id.textView1);
-        //text.setText(mainItems.valueAt(groupPosition).getMainItemTitle());
         NavigationMainItem thisMainItem = (NavigationMainItem) getGroup(groupPosition);
-        ((CheckedTextView) convertView).setText(thisMainItem.mainItemTitle);
+        ((CheckedTextView) convertView).setText(thisMainItem.getMainItemTitle());
         ((CheckedTextView) convertView).setChecked(isExpanded);
         return convertView;
     }
@@ -77,28 +73,17 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final NavigationSubItem thisSubItem = (NavigationSubItem) getChild(groupPosition, childPosition);
-        TextView text = null;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.navigation_drawer_sub_items, parent, false);
         }
-        text = (TextView) convertView.findViewById(R.id.textView1);
+        TextView text = (TextView) convertView.findViewById(R.id.textView1);
         text.setText(thisSubItem.getSubItemTitle());
-        String contentId = thisSubItem.getContentId();
         convertView.setClickable(false);
-        /*convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, thisSubItem.getContentId(),
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });**/
         return convertView;
     }
     public String getContentId(int groupPosition, int childPosition){
         final NavigationSubItem thisSubItem = (NavigationSubItem) getChild(groupPosition, childPosition);
         return thisSubItem.getContentId();
-
     }
 
     @Override
