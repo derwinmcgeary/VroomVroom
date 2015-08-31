@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.NoSuchElementException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -115,11 +116,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeToNextSection(View v){
-        changeToNewSection(contentManager.getNextSubItem());
+        try {
+            changeToNewSection(contentManager.getNextSubItem());
+        } catch (NoSuchElementException e) {
+            //no more content
+        }
     }
 
-    public void changeToPreviousSection(){
-        changeToNewSection(contentManager.getPreviousSubItem());
+    public void changeToPreviousSection(View v){
+        try {
+            changeToNewSection(contentManager.getPreviousSubItem());
+        } catch (NoSuchElementException e) {
+            //no more content
+        }
     }
 
     @Override

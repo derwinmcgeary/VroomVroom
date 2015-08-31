@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Lewis on 30/08/15.
@@ -25,26 +26,35 @@ public class HtmlContentManager {
 
     }
 
-    public NavigationSubItem getNextSubItem(){
-
+    public NavigationSubItem getNextSubItem() throws NoSuchElementException {
         NavigationSubItem nextSubItem = fullContentHashMap.get(iterator.next());
+        if (nextSubItem.getContentId().equals(currentId)){
+            nextSubItem = fullContentHashMap.get(iterator.next());
+        }
+        currentId = nextSubItem.contentId;
         return nextSubItem;
     }
 
-    public NavigationSubItem getPreviousSubItem(){
+    public NavigationSubItem getPreviousSubItem() throws NoSuchElementException {
         NavigationSubItem previousSubItem = fullContentHashMap.get(iterator.previous());
+        if (previousSubItem.getContentId().equals(currentId)){
+            previousSubItem = fullContentHashMap.get(iterator.previous());
+        }
+        currentId = previousSubItem.getContentId();
         return previousSubItem;
     }
 
     public void setCurrentPosition(String currentContentId){
-        iterator.set(currentContentId);
+        currentId = currentContentId;
+        //reset iterator
+        iterator = idList.listIterator();
+        while (!(iterator.next().equals(currentId))){
+            //keep looping until at currentId
+        }
     }
 
     public String getCurrentId() {
         return currentId;
     }
 
-    public void setCurrentId(String currentId) {
-        this.currentId = currentId;
-    }
 }
