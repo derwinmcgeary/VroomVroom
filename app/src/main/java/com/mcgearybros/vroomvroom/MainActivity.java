@@ -114,6 +114,13 @@ public class MainActivity extends AppCompatActivity {
         contentManager.setCurrentPosition(newContentId);
     }
 
+    public void changeToNextSection(View v){
+        changeToNewSection(contentManager.getNextSubItem());
+    }
+
+    public void changeToPreviousSection(){
+        changeToNewSection(contentManager.getPreviousSubItem());
+    }
 
     @Override
     public void onBackPressed() {

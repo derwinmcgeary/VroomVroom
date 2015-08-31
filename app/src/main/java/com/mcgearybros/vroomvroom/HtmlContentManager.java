@@ -20,12 +20,13 @@ public class HtmlContentManager {
     public HtmlContentManager(ArrayList<NavigationSubItem> navigationSubItems, LinkedHashMap fullContentHashMap){
         this.fullSectionArray = navigationSubItems;
         this.fullContentHashMap = fullContentHashMap;
-        idList = new LinkedList<>(fullContentHashMap.entrySet());
+        idList = new LinkedList<>(fullContentHashMap.keySet());
         iterator = idList.listIterator();
 
     }
 
     public NavigationSubItem getNextSubItem(){
+
         NavigationSubItem nextSubItem = fullContentHashMap.get(iterator.next());
         return nextSubItem;
     }
