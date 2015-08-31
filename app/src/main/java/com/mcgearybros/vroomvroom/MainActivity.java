@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ExpandableListView;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -22,7 +21,7 @@ import java.util.NoSuchElementException;
 
 public class MainActivity extends AppCompatActivity {
 
-    WebView htmlDisplay;
+    HighwayCodeWebView htmlDisplay;
     DrawerLayout mDrawerLayout;
     String htmlContentFilename = "hwcode.html";
     //array to be populated using xml parser then passed on to create navigation menu
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseWebview() {
-        htmlDisplay = (WebView) findViewById(R.id.html_display);
+        htmlDisplay = (HighwayCodeWebView) findViewById(R.id.html_display);
         htmlDisplay.getSettings().setJavaScriptEnabled(true);
         currentContentId = "content";
         htmlDisplay.loadUrl("file:///android_asset/" + htmlContentFilename);
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         contentManager.setCurrentPosition(newContentId);
     }
 
-    public void changeToNextSection(View v){
+    public void changeToNextSection(){
         try {
             changeToNewSection(contentManager.getNextSubItem());
         } catch (NoSuchElementException e) {
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void changeToPreviousSection(View v){
+    public void changeToPreviousSection(){
         try {
             changeToNewSection(contentManager.getPreviousSubItem());
         } catch (NoSuchElementException e) {
