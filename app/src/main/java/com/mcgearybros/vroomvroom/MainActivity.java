@@ -1,5 +1,8 @@
 package com.mcgearybros.vroomvroom;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,7 +22,7 @@ import java.io.InputStream;
 import java.util.NoSuchElementException;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements WebViewFragment.OnFragmentInteractionListener{
 
     HighwayCodeWebView htmlDisplay;
     DrawerLayout mDrawerLayout;
@@ -66,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseWebview() {
-        htmlDisplay = (HighwayCodeWebView) findViewById(R.id.html_display);
-        htmlDisplay.getSettings().setJavaScriptEnabled(true);
         currentContentId = "content";
-        htmlDisplay.loadUrl("file:///android_asset/" + htmlContentFilename);
+        WebViewFragment webViewFragment = WebViewFragment.newInstance(currentContentId, "String 2");
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_container, webViewFragment);
+        fragmentTransaction.commit();
     }
 
     private void setupNavigationMenu() {
@@ -80,11 +85,12 @@ public class MainActivity extends AppCompatActivity {
         //only allow one menu subgroup to be open at a time
         navigationDrawerListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousGroup = -1;
+
             @Override
             public void onGroupExpand(int groupPosition) {
                 if (groupPosition != previousGroup)
                     navigationDrawerListView.collapseGroup(previousGroup);
-                    previousGroup = groupPosition;
+                previousGroup = groupPosition;
             }
         });
 
@@ -105,8 +111,13 @@ public class MainActivity extends AppCompatActivity {
         String newContentId = clickedSubItem.getContentId();
         String newTitle = clickedSubItem.getSubItemTitle();
         //display section matching new id and hide previous section
-        htmlDisplay.loadUrl("javascript:var x = document.getElementById('" + newContentId + "').style.display = 'block';" +
-                "var y = document.getElementById('" + currentContentId + "').style.display = 'none';");
+        WebViewFragment webViewFragment = WebViewFragment.newInstance(newContentId, "String 2");
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.replace(R.id.content_container, webViewFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
         //display title of new section in action bar
         getSupportActionBar().setTitle(newTitle);
         //keep track of new id of displayed content
@@ -135,8 +146,11 @@ public class MainActivity extends AppCompatActivity {
         //When Navigation Drawer is open, back button closes it, otherwise Back behaves normally
         if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
             mDrawerLayout.closeDrawer(Gravity.LEFT);
+        } else if(getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
+
         }
     }
 
@@ -159,5 +173,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

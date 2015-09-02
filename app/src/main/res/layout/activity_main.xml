@@ -24,8 +24,8 @@
         app:navigationContentDescription="open the table of contents"
         android:elevation="@dimen/design_appbar_elevation"/>
 
-        <com.mcgearybros.vroomvroom.HighwayCodeWebView
-            android:id="@+id/html_display"
+        <FrameLayout
+            android:id="@+id/content_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </FrameLayout>
