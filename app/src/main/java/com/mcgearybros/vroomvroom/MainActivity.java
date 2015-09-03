@@ -1,7 +1,7 @@
 package com.mcgearybros.vroomvroom;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     private void initialiseWebview() {
         currentContentId = "content";
         WebViewFragment webViewFragment = WebViewFragment.newInstance(currentContentId, "String 2");
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.commit();
@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
         String newTitle = clickedSubItem.getSubItemTitle();
         //display section matching new id and hide previous section
         WebViewFragment webViewFragment = WebViewFragment.newInstance(newContentId, "String 2");
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_top, R.anim.abc_slide_out_top, R.anim.abc_slide_in_bottom);
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
         if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
             mDrawerLayout.closeDrawer(Gravity.LEFT);
         } else if(getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
 
