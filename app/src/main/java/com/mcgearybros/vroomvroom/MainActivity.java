@@ -100,21 +100,18 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 //get sub item which has been selected
                 final NavigationSubItem clickedSubItem = (NavigationSubItem) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
-                changeToNewSection(clickedSubItem);
+                changeToSelectedSection(clickedSubItem);
                 mDrawerLayout.closeDrawers();
                 return false;
             }
         });
     }
 
-    public void changeToNewSection(NavigationSubItem clickedSubItem){
+    public void changeToNewSection(NavigationSubItem clickedSubItem, FragmentTransaction fragmentTransaction){
         String newContentId = clickedSubItem.getContentId();
         String newTitle = clickedSubItem.getSubItemTitle();
         //display section matching new id and hide previous section
         WebViewFragment webViewFragment = WebViewFragment.newInstance(newContentId, "String 2");
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -126,19 +123,32 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     }
 
     public void changeToNextSection(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction downTransaction = fragmentManager.beginTransaction();
+        downTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_left, R.anim.slide_out_right);
         try {
-            changeToNewSection(contentManager.getNextSubItem());
+            changeToNewSection(contentManager.getNextSubItem(), downTransaction);
         } catch (NoSuchElementException e) {
             //no more content
         }
     }
 
     public void changeToPreviousSection(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction upTransaction = fragmentManager.beginTransaction();
+        upTransaction.setCustomAnimations(R.anim.slide_out_bottom, R.anim.slide_in_top, R.anim.slide_in_left, R.anim.slide_out_right);
         try {
-            changeToNewSection(contentManager.getPreviousSubItem());
+            changeToNewSection(contentManager.getPreviousSubItem(), upTransaction);
         } catch (NoSuchElementException e) {
             //no more content
         }
+    }
+
+    public void changeToSelectedSection(NavigationSubItem selectedSubItem){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction selectedTransaction = fragmentManager.beginTransaction();
+        selectedTransaction.setCustomAnimations(R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_in_left, R.anim.slide_out_right);
+        changeToNewSection(selectedSubItem, selectedTransaction);
     }
 
     @Override
