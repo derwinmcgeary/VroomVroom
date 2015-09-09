@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     }
 
     private void initialiseWebview() {
-        currentContentId = "content";
+        currentContentId = "general-guidance-1-to-6";
         WebViewFragment webViewFragment = WebViewFragment.newInstance(currentContentId, "String 2");
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
