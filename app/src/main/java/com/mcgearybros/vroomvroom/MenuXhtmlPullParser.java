@@ -21,6 +21,9 @@ public class MenuXhtmlPullParser {
     public LinkedHashMap<String, NavigationSubItem> subItemsHashMap = new LinkedHashMap<>();
 
     public SparseArray<NavigationMainItem> parse (InputStream inputStream) throws XmlPullParserException, IOException {
+        //NavigationSubItem introductionSubItem = new NavigationSubItem("Introduction", "introduction");
+        //subItemsFromXhtml.add(introductionSubItem);
+        //subItemsHashMap.put(introductionSubItem.getContentId(), introductionSubItem);
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser menuParser = factory.newPullParser();
         menuParser.setInput(inputStream, "utf-8");

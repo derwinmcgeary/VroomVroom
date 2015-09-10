@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -65,8 +66,18 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
             convertView = inflater.inflate(R.layout.navigation_drawer_main_items, parent, false);
         }
         NavigationMainItem thisMainItem = (NavigationMainItem) getGroup(groupPosition);
-        ((CheckedTextView) convertView).setText(thisMainItem.getMainItemTitle());
-        ((CheckedTextView) convertView).setChecked(isExpanded);
+        CheckedTextView mainItemText = (CheckedTextView) convertView.findViewById(R.id.textView1);
+        ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.group_indicator);
+        mainItemText.setText(thisMainItem.getMainItemTitle());
+        mainItemText.setChecked(isExpanded);
+        groupIndicator.setImageResource(isExpanded ? android.R.drawable.arrow_up_float : android.R.drawable.arrow_down_float);
+        if (getChildrenCount(groupPosition) > 1) {
+            groupIndicator.setVisibility(View.VISIBLE);
+        } else {
+            groupIndicator.setVisibility(View.INVISIBLE);
+        }
+                //((CheckedTextView) convertView).setText(thisMainItem.getMainItemTitle());
+        //((CheckedTextView) convertView).setChecked(isExpanded);
         return convertView;
     }
 

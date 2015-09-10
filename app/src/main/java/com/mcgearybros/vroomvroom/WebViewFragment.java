@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ *
  * Activities that contain this fragment must implement the
  * {@link WebViewFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
@@ -67,14 +65,7 @@ public class WebViewFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_web_view, container, false);
         final HighwayCodeWebView htmlDisplay = (HighwayCodeWebView) rootView.findViewById(R.id.html_display);
-        htmlDisplay.getSettings().setJavaScriptEnabled(true);
-        htmlDisplay.setWebViewClient(new WebViewClient(){
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                htmlDisplay.loadUrl("javascript:var x = document.getElementById('" + mParam1 + "').style.display = 'block';");
-            }
-        });
-        htmlDisplay.loadUrl("file:///android_asset/hwcode.html");
+        htmlDisplay.loadUrl("file:///android_asset/" + mParam1 + ".html");
         return rootView;
 
     }

@@ -47,12 +47,19 @@ app:menu="@menu/drawer" -->
             <include
                 android:id="@+id/navigation_drawer_header"
                 layout="@layout/drawer_header" />
+            <!--include
+                android:id="@+id/introduction_menu_item"
+                layout="@layout/navigation_drawer_main_items"
+                android:layout_below="@id/navigation_drawer_header"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:layout_width="match_parent"/-->
 
         <ExpandableListView
             android:id="@+id/navigation_drawer_listView"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_below="@id/navigation_drawer_header"/>
+            android:layout_below="@id/navigation_drawer_header"
+            android:groupIndicator="@null"/>
 
         </RelativeLayout>
 
