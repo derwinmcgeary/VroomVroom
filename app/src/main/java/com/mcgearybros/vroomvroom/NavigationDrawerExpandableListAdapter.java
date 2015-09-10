@@ -70,7 +70,7 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.group_indicator);
         mainItemText.setText(thisMainItem.getMainItemTitle());
         mainItemText.setChecked(isExpanded);
-        groupIndicator.setImageResource(isExpanded ? R.drawable.abc_btn_radio_to_on_mtrl_015 : R.drawable.abc_btn_radio_material);
+        groupIndicator.setImageResource(isExpanded ? android.R.drawable.arrow_up_float : android.R.drawable.arrow_down_float);
         if (getChildrenCount(groupPosition) > 1) {
             groupIndicator.setVisibility(View.VISIBLE);
         } else {
