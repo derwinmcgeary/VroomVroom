@@ -70,7 +70,7 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.group_indicator);
         mainItemText.setText(thisMainItem.getMainItemTitle());
         mainItemText.setChecked(isExpanded);
-        groupIndicator.setImageResource(isExpanded ? android.R.drawable.arrow_up_float : android.R.drawable.arrow_down_float);
+        groupIndicator.setImageResource(isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
         if (getChildrenCount(groupPosition) > 1) {
             groupIndicator.setVisibility(View.VISIBLE);
         } else {
