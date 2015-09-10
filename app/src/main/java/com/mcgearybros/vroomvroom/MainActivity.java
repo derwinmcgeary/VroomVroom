@@ -1,9 +1,9 @@
 package com.mcgearybros.vroomvroom;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -69,15 +69,26 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     }
 
     private void initialiseWebview() {
-        currentContentId = "general-guidance-1-to-6";
+        currentContentId = "introduction";
         WebViewFragment webViewFragment = WebViewFragment.newInstance(currentContentId, "String 2");
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.commit();
+        contentManager.setCurrentPosition(currentContentId);
     }
 
     private void setupNavigationMenu() {
+        /*CheckedTextView introductionMenuItem = (CheckedTextView) findViewById(R.id.introduction_menu_item);
+        introductionMenuItem.setText("Introduction");
+        introductionMenuItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationSubItem clickedSubItem = new NavigationSubItem("Introduction", "introduction");
+                changeToSelectedSection(clickedSubItem);
+                mDrawerLayout.closeDrawers();
+            }
+        });**/
         //populate navigation menu using data parsed from the html content page
         final ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
         final NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
@@ -91,6 +102,20 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
                 if (groupPosition != previousGroup)
                     navigationDrawerListView.collapseGroup(previousGroup);
                 previousGroup = groupPosition;
+            }
+        });
+        navigationDrawerListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (parent.getExpandableListAdapter().getChildrenCount(groupPosition) == 1){
+                    final NavigationSubItem clickedSubItem = (NavigationSubItem) parent.getExpandableListAdapter().getChild(groupPosition, 0);
+                    changeToSelectedSection(clickedSubItem);
+                    mDrawerLayout.closeDrawers();
+                    return true;
+                } else {
+
+                    return false;
+                }
             }
         });
 
