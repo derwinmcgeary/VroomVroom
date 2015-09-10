@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     public void changeToPreviousSection(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction upTransaction = fragmentManager.beginTransaction();
-        upTransaction.setCustomAnimations(R.anim.slide_out_bottom, R.anim.slide_in_top, R.anim.slide_in_left, R.anim.slide_out_right);
+        upTransaction.setCustomAnimations(R.anim.slide_in_top, R.anim.slide_out_bottom, R.anim.slide_in_left, R.anim.slide_out_right);
         try {
             changeToNewSection(contentManager.getPreviousSubItem(), upTransaction);
         } catch (NoSuchElementException e) {
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     public void changeToSelectedSection(NavigationSubItem selectedSubItem){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction selectedTransaction = fragmentManager.beginTransaction();
-        selectedTransaction.setCustomAnimations(R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_in_left, R.anim.slide_out_right);
+        selectedTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         changeToNewSection(selectedSubItem, selectedTransaction);
     }
 
