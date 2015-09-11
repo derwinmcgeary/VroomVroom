@@ -66,18 +66,16 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
             convertView = inflater.inflate(R.layout.navigation_drawer_main_items, parent, false);
         }
         NavigationMainItem thisMainItem = (NavigationMainItem) getGroup(groupPosition);
-        CheckedTextView mainItemText = (CheckedTextView) convertView.findViewById(R.id.textView1);
+        CheckedTextView mainItemTextView = (CheckedTextView) convertView.findViewById(R.id.group_name_text_view);
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.group_indicator);
-        mainItemText.setText(thisMainItem.getMainItemTitle());
-        mainItemText.setChecked(isExpanded);
-        groupIndicator.setImageResource(isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
+        mainItemTextView.setText(thisMainItem.getMainItemTitle());
+        groupIndicator.setSelected(isExpanded);
+        //only show group indicator if more than 1 child. 1 child or less is not expandable
         if (getChildrenCount(groupPosition) > 1) {
             groupIndicator.setVisibility(View.VISIBLE);
         } else {
             groupIndicator.setVisibility(View.INVISIBLE);
         }
-                //((CheckedTextView) convertView).setText(thisMainItem.getMainItemTitle());
-        //((CheckedTextView) convertView).setChecked(isExpanded);
         return convertView;
     }
 
@@ -87,8 +85,8 @@ public class NavigationDrawerExpandableListAdapter extends BaseExpandableListAda
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.navigation_drawer_sub_items, parent, false);
         }
-        TextView text = (TextView) convertView.findViewById(R.id.textView1);
-        text.setText(thisSubItem.getSubItemTitle());
+        TextView subItemTextView = (TextView) convertView.findViewById(R.id.child_name_text_view);
+        subItemTextView.setText(thisSubItem.getSubItemTitle());
         convertView.setClickable(false);
         return convertView;
     }
