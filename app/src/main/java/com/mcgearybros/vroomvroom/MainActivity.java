@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 //get sub item which has been selected
+
                 final NavigationSubItem clickedSubItem = (NavigationSubItem) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
                 changeToSelectedSection(clickedSubItem);
                 mDrawerLayout.closeDrawers();
@@ -135,13 +136,14 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     public void changeToNewSection(NavigationSubItem clickedSubItem, FragmentTransaction fragmentTransaction){
         String newContentId = clickedSubItem.getContentId();
         String newTitle = clickedSubItem.getSubItemTitle();
+        String newSectionTitle = clickedSubItem.getSectionTitle();
         //display section matching new id and hide previous section
         WebViewFragment webViewFragment = WebViewFragment.newInstance(newContentId, "String 2");
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         //display title of new section in action bar
-        getSupportActionBar().setTitle(newTitle);
+        getSupportActionBar().setTitle(newSectionTitle);
         //keep track of new id of displayed content
         currentContentId = newContentId;
         contentManager.setCurrentPosition(newContentId);
