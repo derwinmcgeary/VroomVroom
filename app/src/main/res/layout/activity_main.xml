@@ -10,7 +10,7 @@
 
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
-    <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
+    <RelativeLayout android:id="@+id/container" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- The toolbar is used as an action bar and takes the full width of the screen
@@ -26,9 +26,10 @@
 
         <FrameLayout
             android:id="@+id/content_container"
+            android:layout_below="@id/toolbar_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </FrameLayout>
+    </RelativeLayout>
 
     <!-- The drawer is given a fixed width in dp and extends the full height of
          the container. -->
