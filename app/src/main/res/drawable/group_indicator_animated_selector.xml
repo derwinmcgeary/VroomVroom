@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/collapsed_state"
+        android:state_selected="false"
+        android:drawable="@drawable/group_indicator_collapsed"/>
+    <item
+        android:id="@+id/expanded_state"
+        android:state_selected="true"
+        android:drawable="@drawable/group_indicator_expanded"/>
+
+    
+    <transition
+        android:fromId="@+id/collapsed_state"
+        android:toId="@+id/expanded_state"
+        android:reversible="true">
+        <animated-vector
+            android:drawable="@drawable/group_indicator_collapsed">
+            <target
+                android:name="group_indicator_path"
+                android:animation="@anim/group_indicator_collapse_expand"/>
+        </animated-vector>
+    </transition>
+
+
+
+</animated-selector>
