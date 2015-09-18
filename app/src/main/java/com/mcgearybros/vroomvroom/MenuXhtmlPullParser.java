@@ -40,7 +40,8 @@ public class MenuXhtmlPullParser {
                 menuParser.next();
             }
             //create a new main menu item using the text of the sections h1 tag
-            NavigationMainItem newMainItem = new NavigationMainItem(menuParser.nextText());
+            String sectionTitle = menuParser.nextText();
+            NavigationMainItem newMainItem = new NavigationMainItem(sectionTitle);
             int i = 0;
             //loop until we find the </section> tag
             while (!(("section").equals(menuParser.getName()) &&  menuParser.getEventType() == XmlPullParser.END_TAG)) {
@@ -54,7 +55,7 @@ public class MenuXhtmlPullParser {
                         menuParser.next();
                     }
                     //create a new sub menu item using the text of the articles h1 tag
-                    NavigationSubItem newSubItem = new NavigationSubItem(menuParser.nextText(), newSubItemId);
+                    NavigationSubItem newSubItem = new NavigationSubItem(menuParser.nextText(), newSubItemId, sectionTitle);
                     //add the sub item to the main item
                     newMainItem.subItems.append(i, newSubItem);
                     //collect each sub item in an array
