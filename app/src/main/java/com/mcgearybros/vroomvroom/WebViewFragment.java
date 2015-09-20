@@ -1,7 +1,6 @@
 package com.mcgearybros.vroomvroom;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,12 +69,18 @@ public class WebViewFragment extends android.support.v4.app.Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    /* TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
+    }*/
 
     @Override
     public void onAttach(Activity activity) {
@@ -105,8 +110,8 @@ public class WebViewFragment extends android.support.v4.app.Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        void setAppbarTitle(String title);
+        void updatePositionInContentManager(String contentId);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.mcgearybros.vroomvroom;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -142,8 +141,6 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        //display title of new section in action bar
-        getSupportActionBar().setTitle(newSectionTitle);
         //keep track of new id of displayed content
         currentContentId = newContentId;
         contentManager.setCurrentPosition(newContentId);
@@ -213,7 +210,14 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void setAppbarTitle (String title) {
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
 
+    @Override
+    public void updatePositionInContentManager(String contentId) {
+        contentManager.setCurrentPosition(contentId);
     }
 }
