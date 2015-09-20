@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     private void initialiseWebview() {
         currentContentId = "introduction";
         contentManager.setCurrentPosition(currentContentId);
-        WebViewFragment webViewFragment = WebViewFragment.newInstance(currentContentId, contentManager.getCurrrentSubItem());
+        WebViewFragment webViewFragment = WebViewFragment.newInstance(contentManager.getCurrrentSubItem());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
         String newTitle = clickedSubItem.getSubItemTitle();
         String newSectionTitle = clickedSubItem.getSectionTitle();
         //display section matching new id and hide previous section
-        WebViewFragment webViewFragment = WebViewFragment.newInstance(newContentId, clickedSubItem);
+        WebViewFragment webViewFragment = WebViewFragment.newInstance(clickedSubItem);
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
