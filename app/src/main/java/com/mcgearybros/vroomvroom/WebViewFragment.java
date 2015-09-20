@@ -31,7 +31,6 @@ public class WebViewFragment extends android.support.v4.app.Fragment {
      * @param fragmentSubItem chosen menu item for which content is to be displayed
      * @return A new instance of fragment WebViewFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static WebViewFragment newInstance(NavigationSubItem fragmentSubItem) {
         WebViewFragment fragment = new WebViewFragment();
         Bundle args = new Bundle();
