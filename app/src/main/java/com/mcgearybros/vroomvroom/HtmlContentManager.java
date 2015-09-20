@@ -26,7 +26,7 @@ public class HtmlContentManager {
 
     }
 
-    public NavigationSubItem getCurrrentSubItem(){
+    public NavigationSubItem getCurrentSubItem(){
         NavigationSubItem currentSubItem = fullContentHashMap.get(currentId);
         return currentSubItem;
     }
