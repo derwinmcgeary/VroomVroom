@@ -23,7 +23,6 @@ import java.util.NoSuchElementException;
 
 public class MainActivity extends AppCompatActivity implements WebViewFragment.OnFragmentInteractionListener{
 
-    HighwayCodeWebView htmlDisplay;
     DrawerLayout mDrawerLayout;
     String htmlContentFilename = "hwcode.html";
     //array to be populated using xml parser then passed on to create navigation menu
@@ -78,16 +77,6 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     }
 
     private void setupNavigationMenu() {
-        /*CheckedTextView introductionMenuItem = (CheckedTextView) findViewById(R.id.introduction_menu_item);
-        introductionMenuItem.setText("Introduction");
-        introductionMenuItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavigationSubItem clickedSubItem = new NavigationSubItem("Introduction", "introduction");
-                changeToSelectedSection(clickedSubItem);
-                mDrawerLayout.closeDrawers();
-            }
-        });**/
         //populate navigation menu using data parsed from the html content page
         final ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
         final NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
@@ -133,17 +122,10 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     }
 
     public void changeToNewSection(NavigationSubItem clickedSubItem, FragmentTransaction fragmentTransaction){
-        String newContentId = clickedSubItem.getContentId();
-        String newTitle = clickedSubItem.getSubItemTitle();
-        String newSectionTitle = clickedSubItem.getSectionTitle();
-        //display section matching new id and hide previous section
         WebViewFragment webViewFragment = WebViewFragment.newInstance(clickedSubItem);
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        //keep track of new id of displayed content
-        //currentContentId = newContentId;
-        //contentManager.setCurrentPosition(newContentId);
     }
 
     public void changeToNextSection(){
