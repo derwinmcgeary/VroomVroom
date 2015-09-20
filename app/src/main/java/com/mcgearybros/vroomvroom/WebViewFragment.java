@@ -1,7 +1,6 @@
 package com.mcgearybros.vroomvroom;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +16,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class WebViewFragment extends android.support.v4.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_FRAGMENT_SUB_ITEM = "fragmentSubItem";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // sub item which defines content of fragment
+    private NavigationSubItem fragmentSubItem;
 
     private OnFragmentInteractionListener mListener;
 
@@ -32,16 +28,13 @@ public class WebViewFragment extends android.support.v4.app.Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param fragmentSubItem chosen menu item for which content is to be displayed
      * @return A new instance of fragment WebViewFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static WebViewFragment newInstance(String param1, String param2) {
+    public static WebViewFragment newInstance(NavigationSubItem fragmentSubItem) {
         WebViewFragment fragment = new WebViewFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable(ARG_FRAGMENT_SUB_ITEM, fragmentSubItem);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,8 +47,7 @@ public class WebViewFragment extends android.support.v4.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            fragmentSubItem = getArguments().getParcelable(ARG_FRAGMENT_SUB_ITEM);
         }
     }
 
@@ -65,16 +57,21 @@ public class WebViewFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_web_view, container, false);
         final HighwayCodeWebView htmlDisplay = (HighwayCodeWebView) rootView.findViewById(R.id.html_display);
-        htmlDisplay.loadUrl("file:///android_asset/" + mParam1 + ".html");
+        htmlDisplay.loadUrl("file:///android_asset/" + fragmentSubItem.getContentId() + ".html");
         return rootView;
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    @Override
+    public void onResume() {
+        super.onResume();
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            //when fragment is displayed, call methods in Activity to update title and track current
+            //position with contentManager
+            mListener.setAppbarTitle(fragmentSubItem.getSectionTitle());
+            mListener.updatePositionInContentManager(fragmentSubItem.getContentId());
         }
+
     }
 
     @Override
@@ -95,18 +92,11 @@ public class WebViewFragment extends android.support.v4.app.Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * interface allowing fragment to communicate with Activity
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        void setAppbarTitle(String title);
+        void updatePositionInContentManager(String contentId);
     }
 
 }

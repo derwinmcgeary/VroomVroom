@@ -1,6 +1,5 @@
 package com.mcgearybros.vroomvroom;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,7 +23,6 @@ import java.util.NoSuchElementException;
 
 public class MainActivity extends AppCompatActivity implements WebViewFragment.OnFragmentInteractionListener{
 
-    HighwayCodeWebView htmlDisplay;
     DrawerLayout mDrawerLayout;
     String htmlContentFilename = "hwcode.html";
     //array to be populated using xml parser then passed on to create navigation menu
@@ -70,25 +68,15 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
 
     private void initialiseWebview() {
         currentContentId = "introduction";
-        WebViewFragment webViewFragment = WebViewFragment.newInstance(currentContentId, "String 2");
+        contentManager.setCurrentPosition(currentContentId);
+        WebViewFragment webViewFragment = WebViewFragment.newInstance(contentManager.getCurrentSubItem());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.commit();
-        contentManager.setCurrentPosition(currentContentId);
     }
 
     private void setupNavigationMenu() {
-        /*CheckedTextView introductionMenuItem = (CheckedTextView) findViewById(R.id.introduction_menu_item);
-        introductionMenuItem.setText("Introduction");
-        introductionMenuItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavigationSubItem clickedSubItem = new NavigationSubItem("Introduction", "introduction");
-                changeToSelectedSection(clickedSubItem);
-                mDrawerLayout.closeDrawers();
-            }
-        });**/
         //populate navigation menu using data parsed from the html content page
         final ExpandableListView navigationDrawerListView = (ExpandableListView) findViewById(R.id.navigation_drawer_listView);
         final NavigationDrawerExpandableListAdapter adapter = new NavigationDrawerExpandableListAdapter(this, mainItems);
@@ -134,19 +122,10 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     }
 
     public void changeToNewSection(NavigationSubItem clickedSubItem, FragmentTransaction fragmentTransaction){
-        String newContentId = clickedSubItem.getContentId();
-        String newTitle = clickedSubItem.getSubItemTitle();
-        String newSectionTitle = clickedSubItem.getSectionTitle();
-        //display section matching new id and hide previous section
-        WebViewFragment webViewFragment = WebViewFragment.newInstance(newContentId, "String 2");
+        WebViewFragment webViewFragment = WebViewFragment.newInstance(clickedSubItem);
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        //display title of new section in action bar
-        getSupportActionBar().setTitle(newSectionTitle);
-        //keep track of new id of displayed content
-        currentContentId = newContentId;
-        contentManager.setCurrentPosition(newContentId);
     }
 
     public void changeToNextSection(){
@@ -213,7 +192,14 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void setAppbarTitle (String title) {
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
 
+    @Override
+    public void updatePositionInContentManager(String contentId) {
+        contentManager.setCurrentPosition(contentId);
     }
 }

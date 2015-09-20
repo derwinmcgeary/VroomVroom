@@ -18,12 +18,17 @@ public class HtmlContentManager {
     public String currentId;
     public ListIterator<String> iterator;
 
-    public HtmlContentManager(ArrayList<NavigationSubItem> navigationSubItems, LinkedHashMap fullContentHashMap){
+    public HtmlContentManager(ArrayList<NavigationSubItem> navigationSubItems, LinkedHashMap<String, NavigationSubItem> fullContentHashMap){
         this.fullSectionArray = navigationSubItems;
         this.fullContentHashMap = fullContentHashMap;
         idList = new LinkedList<>(fullContentHashMap.keySet());
         iterator = idList.listIterator();
 
+    }
+
+    public NavigationSubItem getCurrentSubItem(){
+        NavigationSubItem currentSubItem = fullContentHashMap.get(currentId);
+        return currentSubItem;
     }
 
     public NavigationSubItem getNextSubItem() throws NoSuchElementException {
