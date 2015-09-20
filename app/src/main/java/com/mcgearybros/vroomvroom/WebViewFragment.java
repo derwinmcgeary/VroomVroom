@@ -72,6 +72,10 @@ public class WebViewFragment extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (mListener != null) {
+            mListener.setAppbarTitle(mParam2.getSectionTitle());
+            mListener.updatePositionInContentManager(mParam2.getContentId());
+        }
 
     }
 

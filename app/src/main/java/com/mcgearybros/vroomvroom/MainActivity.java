@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         //keep track of new id of displayed content
-        currentContentId = newContentId;
-        contentManager.setCurrentPosition(newContentId);
+        //currentContentId = newContentId;
+        //contentManager.setCurrentPosition(newContentId);
     }
 
     public void changeToNextSection(){
