@@ -69,12 +69,12 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
 
     private void initialiseWebview() {
         currentContentId = "introduction";
-        WebViewFragment webViewFragment = WebViewFragment.newInstance(currentContentId, "String 2");
+        contentManager.setCurrentPosition(currentContentId);
+        WebViewFragment webViewFragment = WebViewFragment.newInstance(currentContentId, contentManager.getCurrrentSubItem());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.commit();
-        contentManager.setCurrentPosition(currentContentId);
     }
 
     private void setupNavigationMenu() {
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
         String newTitle = clickedSubItem.getSubItemTitle();
         String newSectionTitle = clickedSubItem.getSectionTitle();
         //display section matching new id and hide previous section
-        WebViewFragment webViewFragment = WebViewFragment.newInstance(newContentId, "String 2");
+        WebViewFragment webViewFragment = WebViewFragment.newInstance(newContentId, clickedSubItem);
         fragmentTransaction.replace(R.id.content_container, webViewFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
