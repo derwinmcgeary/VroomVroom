@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     //array to be populated using xml parser then passed on to create navigation menu
     SparseArray<NavigationMainItem> mainItems = new SparseArray<>();
     //id in html file of currently displayed section
-    String currentContentId;
     HtmlContentManager contentManager;
 
     @Override
@@ -36,9 +35,20 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         parseXhtml();
+        if (savedInstanceState != null){
+            //when the state of the activity has been saved, restore the ID of the previously displayed content
+            contentManager.setCurrentPosition(savedInstanceState.getString("current content"));
+        }
         initialiseActivityUi();
         initialiseWebview();
         setupNavigationMenu();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //save the ID of the currently displayed fragment
+        outState.putString("current content", contentManager.getCurrentId());
+        super.onSaveInstanceState(outState);
     }
 
     private void parseXhtml() {
@@ -67,8 +77,10 @@ public class MainActivity extends AppCompatActivity implements WebViewFragment.O
     }
 
     private void initialiseWebview() {
-        currentContentId = "introduction";
-        contentManager.setCurrentPosition(currentContentId);
+        if(contentManager.getCurrentSubItem() == null) {
+            //if we are not restoring previously saved fragment content then default to the introduction
+            contentManager.setCurrentPosition("introduction");
+        }
         WebViewFragment webViewFragment = WebViewFragment.newInstance(contentManager.getCurrentSubItem());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
